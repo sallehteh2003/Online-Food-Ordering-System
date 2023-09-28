@@ -1,0 +1,18 @@
+{
+
+  "DATABASE": {
+    "SQL": {
+      "HOST": "localhost",
+      "PORT": 5432,
+      "NAME": "food_order",
+      "SQL_USERNAME": "postgres",
+      "PASSWORD": "saleh"
+    },
+    "REDIS": {
+      "Addr": "localhost:6379"
+    }
+  },
+  "ValidDomain": ["gmail.com"],
+  "IllegalWords": ["fuck"],
+  "ValidPhoneCountry": ["+98"]
+}

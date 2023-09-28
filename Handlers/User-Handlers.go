@@ -3,7 +3,6 @@ package Handlers
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"main/DataBase"
 	"main/Validation"
 	"net/http"
 )
@@ -53,25 +52,28 @@ func (s *Server) UserSignUpHandler(g *gin.Context) {
 		g.IndentedJSON(http.StatusBadRequest, gin.H{"message": fmt.Sprintf("user with this %v exist", UserDuplicate)})
 		return
 	}
-
-	// Create new user in database
-	user := &DataBase.User{
-		FirstName:   reqData.FirstName,
-		LastName:    reqData.LastName,
-		Email:       reqData.Email,
-		PhoneNumber: reqData.PhoneNumber,
-		Address:     reqData.Address,
-		Login:       false,
-		Username:    reqData.Username,
-		Password:    reqData.Password,
-		Currency:    0,
-	}
-
-	if err := s.Db.CreateNewUser(user); err != nil {
-		s.Logger.WithError(err).Error("can not create a new user")
-		g.IndentedJSON(http.StatusInternalServerError, gin.H{"message": "something went wrong ,please try later!"})
+	if err := s.Db.CreateTempUserOnRedis("saleh"); err != nil {
+		g.IndentedJSON(http.StatusForbidden, "New User Created")
 		return
 	}
+	//// Create new user in database
+	//user := &DataBase.User{
+	//	FirstName:   reqData.FirstName,
+	//	LastName:    reqData.LastName,
+	//	Email:       reqData.Email,
+	//	PhoneNumber: reqData.PhoneNumber,
+	//	Address:     reqData.Address,
+	//	Login:       false,
+	//	Username:    reqData.Username,
+	//	Password:    reqData.Password,
+	//	Currency:    0,
+	//}
+	//
+	//if err := s.Db.CreateNewUser(user); err != nil {
+	//	s.Logger.WithError(err).Error("can not create a new user")
+	//	g.IndentedJSON(http.StatusInternalServerError, gin.H{"message": "something went wrong ,please try later!"})
+	//	return
+	//}
 	g.IndentedJSON(http.StatusCreated, "New User Created")
 	return
 }

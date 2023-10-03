@@ -1,5 +1,5 @@
 package Handlers
 
-func (s *Server) name() {
+func (s *Server) saleh() {
 
 }

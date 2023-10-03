@@ -10,20 +10,13 @@ func (gdb *DB) GetUserByUsername(username string) (*User, error) {
 	}
 	return &u, nil
 }
-func (gdb *DB) CheckUserDuplicate(username string, email string, phoneNumber string) (string, error) {
+func (gdb *DB) CheckUserDuplicate(username string, phoneNumber string) (string, error) {
 	UsernameDuplicate, err := gdb.CheckUserDuplicateByUsername(username)
 	if err != nil {
 		return "", err
 	}
 	if UsernameDuplicate {
 		return "username", nil
-	}
-	EmailDuplicate, err := gdb.CheckUserDuplicateByEmail(email)
-	if err != nil {
-		return "", err
-	}
-	if EmailDuplicate {
-		return "email", nil
 	}
 	PhoneNumberDuplicate, err := gdb.CheckUserDuplicateByPhoneNumber(phoneNumber)
 	if err != nil {

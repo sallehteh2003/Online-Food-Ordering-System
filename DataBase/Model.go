@@ -6,13 +6,13 @@ import (
 
 type Admin struct {
 	gorm.Model
-	FirstName   string
-	LastName    string
-	Email       string
-	PhoneNumber string
-	Login       bool
-	Username    string
-	Password    string
+	FirstName string
+	LastName  string
+	Email     string
+	//PhoneNumber string
+	Login    bool
+	Username string
+	Password string
 }
 type RestaurantAdmin struct {
 	gorm.Model

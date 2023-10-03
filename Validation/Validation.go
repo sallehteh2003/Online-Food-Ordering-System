@@ -60,8 +60,8 @@ func (v *Validation) ValidateData(inputData ValidateData) (ValidationMessage, er
 	fn := v.validateFirstName(inputData.FirstName)
 	ln := v.validateLastName(inputData.LastName)
 	ad := v.validateAddress(inputData.Address)
-	pn := v.validatePhoneNumber(inputData.PhoneNumber)
-	em := v.validateEmail(inputData.Email)
+	pn := v.ValidatePhoneNumber(inputData.PhoneNumber)
+	em := v.ValidateEmail(inputData.Email)
 	un := v.validateUserName(inputData.Username)
 	ps := v.validatePassword(inputData.Password)
 	var err error
@@ -85,7 +85,7 @@ func (v *Validation) ValidateData(inputData ValidateData) (ValidationMessage, er
 
 }
 
-func (v *Validation) validateEmail(email string) bool {
+func (v *Validation) ValidateEmail(email string) bool {
 	if email == "" || !(strings.Contains(email, "@")) {
 		return false
 	}
@@ -201,7 +201,7 @@ func (v *Validation) validateAddress(address string) bool {
 	return true
 }
 
-func (v *Validation) validatePhoneNumber(phoneNumber string) bool {
+func (v *Validation) ValidatePhoneNumber(phoneNumber string) bool {
 	if phoneNumber == "" && len(phoneNumber) != 10 {
 		return false
 	}

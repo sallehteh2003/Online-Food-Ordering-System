@@ -14,5 +14,5 @@
   },
   "ValidDomain": ["gmail.com"],
   "IllegalWords": ["fuck"],
-  "ValidPhoneCountry": ["+98"]
+  "ValidPhoneCountry": ["+98","+45"]
 }

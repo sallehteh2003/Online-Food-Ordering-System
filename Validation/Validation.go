@@ -202,14 +202,19 @@ func (v *Validation) validateAddress(address string) bool {
 }
 
 func (v *Validation) ValidatePhoneNumber(phoneNumber string) bool {
-	if phoneNumber == "" && len(phoneNumber) != 10 {
+	if phoneNumber == "" {
 		return false
 	}
 	PhoneNumberPart := strings.Split(phoneNumber, "-")
 	if len(PhoneNumberPart) != 2 {
 		return false
 	}
+
 	if !v.checkValidPhoneCountry(PhoneNumberPart[0]) {
+		return false
+	}
+
+	if len(PhoneNumberPart[1]) > 10 || len(PhoneNumberPart[1]) < 6 {
 		return false
 	}
 	for _, i2 := range PhoneNumberPart[1] {

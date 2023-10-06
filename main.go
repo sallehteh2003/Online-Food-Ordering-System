@@ -8,6 +8,7 @@ import (
 	"main/Config"
 	"main/DataBase"
 	"main/Handlers"
+	"main/Logic"
 	"main/Validation"
 )
 
@@ -41,15 +42,25 @@ func main() {
 	if err != nil {
 		logger.WithError(err).Fatalln("can not create instance of Authentication")
 	}
+	logic := &Logic.Logic{
+		EmailAddr:  "",
+		AccountSid: "AC2f7f9f1ec753eddac1196426338ab33f",
+		AuthToken:  "f0e0891ebd338cd7a90e027508cb3791",
+	}
 	server := Handlers.Server{
 		Logger: logger,
 		Db:     db,
 		Vln:    vln,
 		At:     Auth,
+		Lo:     logic,
 	}
 
-	r.POST("/Api/User/Signup", server.UserSignUpHandler)
+	r.POST("/Api/User/VerifyRequest", server.UserVerifyRequestHandler)
+	r.POST("Api/User/Verify", server.UserVerifyHandler)
+	r.POST("Api/User/Register", server.UserRegisterHandler)
+	r.POST("Api/User/Login", server.UserLoginHandler)
 	if err := r.Run("localhost:8080"); err != nil {
 		logrus.WithError(err).Fatalln("can not run server")
 	}
+
 }
